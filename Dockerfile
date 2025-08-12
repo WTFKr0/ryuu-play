@@ -21,7 +21,7 @@ RUN rm -rf node_modules \
 
 # Listen to all interfaces, update path to web-ui
 RUN cd /repo \
-  && sed -i 's/localhost/0.0.0.0/g' init.js
+  && sed -i 's/localhost/0.0.0.0/g' init.js \
   && sed -i '/webUiDir/d' init.js \
   && sed -i 's/config.backend.webUiDir/__dirname + "\/ptcg-play"/' start.js
 
