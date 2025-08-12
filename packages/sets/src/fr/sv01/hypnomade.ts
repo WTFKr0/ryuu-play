@@ -36,6 +36,7 @@ export class Hypnomade extends PokemonCard {
   public cardTypes: CardType[] = [CardType.PSYCHIC];
 
   public hp: number = 110;
+
   public weakness = [{ type: CardType.ANY }];
 
   public resistance = [
@@ -44,7 +45,9 @@ export class Hypnomade extends PokemonCard {
       value: -30,
     },
   ];
+
   public retreat = [CardType.COLORLESS,CardType.COLORLESS];
+
 
   public attacks = [
     {

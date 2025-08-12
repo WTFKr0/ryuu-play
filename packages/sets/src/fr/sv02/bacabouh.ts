@@ -35,6 +35,7 @@ export class Bacabouh extends PokemonCard {
   public cardTypes: CardType[] = [CardType.PSYCHIC];
 
   public hp: number = 90;
+
   public weakness = [{ type: CardType.ANY }];
 
   public resistance = [
@@ -43,7 +44,9 @@ export class Bacabouh extends PokemonCard {
       value: -30,
     },
   ];
+
   public retreat = [CardType.COLORLESS,CardType.COLORLESS,CardType.COLORLESS];
+
 
   public attacks = [
     {

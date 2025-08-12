@@ -35,6 +35,7 @@ export class Cresselia extends PokemonCard {
   public cardTypes: CardType[] = [CardType.PSYCHIC];
 
   public hp: number = 120;
+
   public weakness = [{ type: CardType.ANY }];
 
   public resistance = [
@@ -43,7 +44,9 @@ export class Cresselia extends PokemonCard {
       value: -30,
     },
   ];
+
   public retreat = [CardType.COLORLESS];
+
 
   public attacks = [
     {

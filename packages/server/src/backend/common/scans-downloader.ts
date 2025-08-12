@@ -31,7 +31,10 @@ export class ScansDownloader {
 
     for (const card of cardsToDownload) {
       const filePath = config.sets.scansDir + this.getCardPath(card);
-      const downloadUrl = config.sets.scansDownloadUrl + this.getCardPath(card);
+      let downloadUrl = config.sets.scansDownloadUrl + this.getCardPath(card);
+      if (card.imageUrl) {
+        downloadUrl = card.imageUrl;
+      }
       console.log('File: ' + downloadUrl);
 
       await this.createDirectoryForFile(filePath);
@@ -49,7 +52,7 @@ export class ScansDownloader {
   private fileExists(filePath: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
       access(filePath, constants.F_OK, err => {
-        resolve(err ? false: true);
+        resolve(err ? false : true);
       });
     });
   }

@@ -11,7 +11,7 @@ import {
 
 export class Civière_Nocturne extends TrainerCard {
 
-  public trainerType: TrainerType = TrainerType.TOOL;
+  public trainerType: TrainerType = TrainerType.ITEM;
 
   public set: string = 'sv06.5';
 

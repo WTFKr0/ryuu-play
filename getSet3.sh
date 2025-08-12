@@ -15,19 +15,19 @@ function typeJS {
 		echo "FIGHTING"
 	elif [ "$t" == "Psy" ]; then
 		echo "PSYCHIC"
-	elif [ "$t" == "Plante" ]; then
+	elif [ "$t" == "Eau" ]; then
 		echo "WATER"
-	elif [ "$t" == "Plante" ]; then
+	elif [ "$t" == "Électrique" ]; then
 		echo "LIGHTNING"
-	elif [ "$t" == "Plante" ]; then
+	elif [ "$t" == "Métal" ]; then
 		echo "METAL"
-	elif [ "$t" == "Plante" ]; then
+	elif [ "$t" == "Obscurité" ]; then
 		echo "DARK"
-	elif [ "$t" == "Plante" ]; then
+	elif [ "$t" == "Feu" ]; then
 		echo "FIRE"
-	elif [ "$t" == "Plante" ]; then
+	elif [ "$t" == "Dragon" ]; then
 		echo "DRAGON"
-	elif [ "$t" == "Plante" ]; then
+	elif [ "$t" == "Fée" ]; then
 		echo "FAIRY"
 	elif [ "$t" == "ANY" ]; then
 		echo "ANY"
@@ -37,44 +37,101 @@ function typeJS {
 setlist=""
 
 cardlist="
-# sv06.5 : SFA : Fable Nébuleuse
-sv06.5;16
-sv06.5;18
-sv06.5;19
-sv06.5;20
-sv06.5;21
-sv06.5;51
-sv06.5;52
-sv06.5;53
-sv06.5;61
-sv06.5;63
-sv06.5;64
-# sv06 : TWM : Mascarade Crépusculaire
-sv06;79
-sv06;91
-# sv04 : PAR : Faille Paradoxe
-sv04;74
-# sv08 : SSP : Étincelles Déferlantes
-sv08;81
 # sv01 : SVI : Écarlate et Violet
 sv01;83
 sv01;144
 sv01;153
 sv01;171
 sv01;175
+sv01;180
 sv01;181
+
 # sv02 : PAL : Évolutions à Paldea
 sv02;95
 sv02;96
+sv02;151
+sv02;164
+sv02;170
+
+# sv03 : OBF : Flammes Obsidiennes
+sv03;143
+sv03;148
+sv03;149
+sv03;152
+sv03;155
+sv03;165
+sv03;185
+
+# sv04 : PAR : Faille Paradoxe
+sv04;74
+sv04;148
+sv04;173
+sv04;182
+
 # sv05 : TEF : Forces Temporelles
+sv05;112
 sv05;128
 sv05;129
+sv05;138
 sv05;139
-# swsh9 : Stars Étincelantes
+sv05;150
+
+# sv06 : TWM : Mascarade Crépusculaire
+sv06;79
+sv06;91
+sv06;144
+sv06;161
+
+# sv06.5 : SFA : Fable Nébuleuse
+sv06.5;15
+sv06.5;16
+sv06.5;18
+sv06.5;19
+sv06.5;20
+sv06.5;21
+sv06.5;41
+sv06.5;42
+sv06.5;43
+sv06.5;51
+sv06.5;52
+sv06.5;53
+sv06.5;54
+sv06.5;56
+sv06.5;61
+sv06.5;63
+sv06.5;64
+
+# sv08 : SSP : Étincelles Déferlantes
+sv08;81
+sv08;129
+
+# swsh1 : SWSH1 : Épée et Bouclier
+swsh1;165
+
+# swsh4 : SWSH4 : Voltage Éclatant
+swsh4;112
+
+# swsh9 : BRS : Stars Étincelantes
 swsh9;53
 swsh9;56
-# swsh12.5 : Zénith Suprême
+
+# swsh10 : ASR : Astres Radieux
+swsh10;149
+
+# swsh12 : SIT : Tempête Argentée
+swsh12;151
+
+# swsh12.5 : CRZ : Zénith Suprême
 swsh12.5;67
+swsh12.5;92
+swsh12.5;152
+swsh12.5;153
+swsh12.5;154
+swsh12.5;155
+swsh12.5;156
+swsh12.5;157
+swsh12.5;158
+swsh12.5;159
 "
 
 ## Create base index
@@ -116,7 +173,7 @@ for s in $sets; do
 		echo "uniquename: $uniquename"
         filename=$(echo "${name,,}" |  sed "s/[ ']/-/g")
 		echo "filename: $filename"
-		name=$(echo "$name" | sed "s/'/\\\\'/g")
+		name=$(echo "$name" | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
 		echo "name2: $name"
 
 		# Init file for card
@@ -254,8 +311,8 @@ EOF
 				ia=0
 				while [ $ia -lt $nbabilities ]; do
 					abtype=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].type')
-					abname=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].name' | sed "s/'/\\\\'/g")
-					abeffect=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].effect' | sed "s/'/\\\\'/g")
+					abname=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].name' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
+					abeffect=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
 					[ "$abeffect" == "null" ] && abeffect=""
 					echo "    {" >> $tmpfile
 					echo "      name: '$abname'," >> $tmpfile
@@ -277,8 +334,8 @@ EOF
                                 ia=0
                                 while [ $ia -lt $nbattacks ]; do
                                         atcost=$(echo "$cardjson" | jq --argjson id $ia -r '.attacks[$id].cost[]')
-                                        atname=$(echo "$cardjson" | jq --argjson id $ia -r '.attacks[$id].name' | sed "s/'/\\\\'/g")
-                                        ateffect=$(echo "$cardjson" | jq --argjson id $ia -r '.attacks[$id].effect' | sed "s/'/\\\\'/g")
+                                        atname=$(echo "$cardjson" | jq --argjson id $ia -r '.attacks[$id].name' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
+                                        ateffect=$(echo "$cardjson" | jq --argjson id $ia -r '.attacks[$id].effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
 										[ "$ateffect" == "null" ] && ateffect=""
                                         atdamage=$(echo "$cardjson" | jq --argjson id $ia -r '.attacks[$id].damage')
 										[ "$atdamage" == "null" ] && atdamage=""
@@ -330,6 +387,8 @@ EOF
 				trainertype="SUPPORTER"
 			elif [ "$trainertype" == "Outil" ]; then
 				trainertype="TOOL"
+			elif [ "$trainertype" == "Stade" ]; then
+				trainertype="STADIUM"
 			else
 	#      = 0,
     #SUPPORTER = 1,
@@ -338,7 +397,7 @@ EOF
 				echo "TrainerType $trainertype not found !"
 				exit 3
 			fi
-			effect=$(echo "$cardjson" | jq -r '.effect' | sed "s/'/\\\\'/g")
+			effect=$(echo "$cardjson" | jq -r '.effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
 			echo "trainertype: $trainertype"
 			echo "effect: $effect"
 			# Feed tmpfile
@@ -362,6 +421,69 @@ EOF
     return state;
   }" >> $tmpfile
 			
+		## Energies
+		elif [ "$category" == "Énergie" ]; then
+			cat <<EOF >$tmpfile
+import {
+  CardType,
+  EnergyCard,
+  EnergyType,
+} from '@ptcg/common';
+
+EOF
+
+			# Get values
+			energyType=$(echo "$cardjson" | jq -r '.energyType')
+			if [ "$energyType" == "De base" ]; then
+				energyType="BASIC"
+			elif [ "$energyType" == "Spécial" ]; then
+				energyType="SPECIAL"
+			else
+	#      = 0,
+    #SUPPORTER = 1,
+    #STADIUM = 2,
+    # = 3
+				echo "energyType $energyType not found !"
+				exit 3
+			fi
+
+			energyT=$(echo "$name" | sed "s/^Énergie //g")
+			energyTjs=`typeJS "$energyT"`
+			if [ -z "$energyTjs" ]; then
+				if [ "$energyT" == "Médicale" ]; then
+					energyTjs="COLORLESS"
+				else
+					echo "Type $energyT inconnu !" && exit 3
+				fi
+			fi
+			effect=$(echo "$cardjson" | jq -r '.effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
+			[ "$effect" == "null" ] && effect=""
+
+			echo "energyTjs: $energyTjs"
+			echo "effect: $effect"
+			# Feed tmpfile
+			echo "export class $uniquename extends EnergyCard {" >> $tmpfile
+			echo >> $tmpfile
+			echo "  public provides: CardType[] = [CardType.$energyTjs];" >> $tmpfile
+			echo >> $tmpfile
+			echo "  public energyType = EnergyType.$energyType;" >> $tmpfile
+			echo >> $tmpfile
+			echo "  public set: string = '$s';" >> $tmpfile
+			echo >> $tmpfile
+			echo "  public name: string = '$name';" >> $tmpfile
+			echo >> $tmpfile
+			echo "  public fullName: string = '$name $s';" >> $tmpfile
+			echo >> $tmpfile
+			echo "  public imageUrl: string = '$image';" >> $tmpfile
+			echo >> $tmpfile
+			echo "  public text: string = '$effect';" >> $tmpfile
+			echo >> $tmpfile
+
+#			echo >> $tmpfile
+#			echo "  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+#    return state;
+#  }" >> $tmpfile
+		
 		else
 			echo "Category $category not managed !"
 			exit 2

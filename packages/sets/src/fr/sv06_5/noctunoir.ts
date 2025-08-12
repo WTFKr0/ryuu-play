@@ -36,6 +36,7 @@ export class Noctunoir extends PokemonCard {
   public cardTypes: CardType[] = [CardType.PSYCHIC];
 
   public hp: number = 160;
+
   public weakness = [{ type: CardType.ANY }];
 
   public resistance = [
@@ -44,7 +45,9 @@ export class Noctunoir extends PokemonCard {
       value: -30,
     },
   ];
+
   public retreat = [CardType.COLORLESS,CardType.COLORLESS,CardType.COLORLESS];
+
 
   public powers = [
     {

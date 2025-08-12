@@ -2,7 +2,7 @@ const { BotManager, SimpleBot, config } = require('@ptcg/server');
 const { CardManager } = require('@ptcg/common');
 
 // Backend config
-config.backend.address = 'localhost';
+config.backend.address = '0.0.0.0';
 config.backend.port = 12021;
 config.backend.avatarsDir = __dirname + '/avatars';
 config.backend.webUiDir = __dirname + '/packages/play/dist/ptcg-play';
@@ -19,11 +19,11 @@ config.sets.scansDir = __dirname + '/scans';
 config.sets.scansDownloadUrl = 'https://ptcg.ryuu.eu/scans'; // Server to download missing scans
 
 // Define available sets
-const { baseSets, exSets, standardSets } = require('@ptcg/sets');
+const { baseSets, exSets, standardSets, frSets } = require('@ptcg/sets');
 
 const cardManager = CardManager.getInstance();
 
-cardManager.defineFormat('Standard', [
+/*cardManager.defineFormat('Standard', [
   standardSets.setDiamondAndPearl,
   standardSets.setOp9,
   standardSets.setHgss,
@@ -43,8 +43,28 @@ cardManager.defineFormat('Base Sets', [
   baseSets.setBase,
   baseSets.setJungle,
   baseSets.setFossil
+]);*/
+
+cardManager.defineFormat('FR', [
+  frSets.setsv01,
+  frSets.setsv02,
+  frSets.setsv03,
+  frSets.setsv04,
+  frSets.setsv05,
+  frSets.setsv06,
+  frSets.setsv06_5,
+  frSets.setsv08,
+  frSets.setswsh1,
+  frSets.setswsh4,
+  frSets.setswsh9,
+  frSets.setswsh10,
+  frSets.setswsh12,
+  frSets.setswsh12_5
 ]);
 
 // Define bots
 const botManager = BotManager.getInstance();
 botManager.registerBot(new SimpleBot('bot'));
+
+botManager.registerBot(new SimpleBot('botmetal'));
+botManager.registerBot(new SimpleBot('botplante'));

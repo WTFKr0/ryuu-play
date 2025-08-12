@@ -35,6 +35,7 @@ export class Leveinard extends PokemonCard {
   public cardTypes: CardType[] = [CardType.COLORLESS];
 
   public hp: number = 110;
+
   public weakness = [{ type: CardType.ANY }];
 
   public resistance = [
@@ -43,7 +44,9 @@ export class Leveinard extends PokemonCard {
       value: -30,
     },
   ];
+
   public retreat = [CardType.COLORLESS,CardType.COLORLESS];
+
 
   public attacks = [
     {

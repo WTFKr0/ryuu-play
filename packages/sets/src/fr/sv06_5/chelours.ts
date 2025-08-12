@@ -36,6 +36,7 @@ export class Chelours extends PokemonCard {
   public cardTypes: CardType[] = [CardType.COLORLESS];
 
   public hp: number = 130;
+
   public weakness = [{ type: CardType.ANY }];
 
   public resistance = [
@@ -44,7 +45,9 @@ export class Chelours extends PokemonCard {
       value: -30,
     },
   ];
+
   public retreat = [CardType.COLORLESS,CardType.COLORLESS,CardType.COLORLESS];
+
 
   public attacks = [
     {

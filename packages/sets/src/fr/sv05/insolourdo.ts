@@ -35,6 +35,7 @@ export class Insolourdo extends PokemonCard {
   public cardTypes: CardType[] = [CardType.COLORLESS];
 
   public hp: number = 60;
+
   public weakness = [{ type: CardType.ANY }];
 
   public resistance = [
@@ -43,7 +44,9 @@ export class Insolourdo extends PokemonCard {
       value: -30,
     },
   ];
+
   public retreat = [];
+
 
   public attacks = [
     {

@@ -13,6 +13,8 @@ export abstract class Card {
 
   public abstract name: string;
 
+  public abstract imageUrl: string;
+
   public id: number = -1;
 
   public tags: string[] = [];

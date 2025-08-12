@@ -11,7 +11,7 @@ import {
 
 export class Récupération_d_Énergie extends TrainerCard {
 
-  public trainerType: TrainerType = TrainerType.TOOL;
+  public trainerType: TrainerType = TrainerType.ITEM;
 
   public set: string = 'sv01';
 

@@ -35,6 +35,7 @@ export class Cryptéro extends PokemonCard {
   public cardTypes: CardType[] = [CardType.PSYCHIC];
 
   public hp: number = 110;
+
   public weakness = [{ type: CardType.ANY }];
 
   public resistance = [
@@ -43,7 +44,9 @@ export class Cryptéro extends PokemonCard {
       value: -30,
     },
   ];
+
   public retreat = [CardType.COLORLESS];
+
 
   public attacks = [
     {

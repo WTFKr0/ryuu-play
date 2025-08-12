@@ -35,6 +35,7 @@ export class Couafarel extends PokemonCard {
   public cardTypes: CardType[] = [CardType.COLORLESS];
 
   public hp: number = 100;
+
   public weakness = [{ type: CardType.ANY }];
 
   public resistance = [
@@ -43,7 +44,9 @@ export class Couafarel extends PokemonCard {
       value: -30,
     },
   ];
+
   public retreat = [CardType.COLORLESS];
+
 
   public attacks = [
     {
