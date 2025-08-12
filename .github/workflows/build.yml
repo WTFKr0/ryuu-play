@@ -8,6 +8,6 @@ jobs:
     steps:
     - uses: actions/checkout@v5.0.0
     - name: Build Docker Image
-      run: docker build . -t $DOCKERU/ryuu-play:latest
+      run: docker build . -t ${{ secrets.DOCKERU }}/ryuu-play:latest
     - name: Push Docker Image
-      run: docker login -u $DOCKERU -p $DOCKERP && docker push $DOCKERU/ryuu-play:latest
+      run: docker login -u ${{ secrets.DOCKERU }} -p ${{ secrets.DOCKERP }} && docker push ${{ secrets.DOCKERU }}/ryuu-play:latest
