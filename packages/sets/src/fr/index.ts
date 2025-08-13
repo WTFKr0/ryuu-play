@@ -1,3 +1,4 @@
+export * from './det1';
 export * from './sv01';
 export * from './sv02';
 export * from './sv03';

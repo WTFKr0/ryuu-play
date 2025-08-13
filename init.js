@@ -59,7 +59,8 @@ cardManager.defineFormat('FR', [
   frSets.setswsh9,
   frSets.setswsh10,
   frSets.setswsh12,
-  frSets.setswsh12_5
+  frSets.setswsh12_5,
+  frSets.setdet1
 ]);
 
 // Define bots
@@ -68,3 +69,4 @@ botManager.registerBot(new SimpleBot('bot'));
 
 botManager.registerBot(new SimpleBot('botmetal'));
 botManager.registerBot(new SimpleBot('botplante'));
+botManager.registerBot(new SimpleBot('botpsy'));

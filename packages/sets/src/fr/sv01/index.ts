@@ -1,4 +1,5 @@
 import { Card } from '@ptcg/common';
+import { Miraidon } from './miraidon';
 import { Hypnomade } from './hypnomade';
 import { Leveinard } from './leveinard';
 import { Wimessir } from './wimessir';
@@ -8,6 +9,7 @@ import { Menzi } from './menzi';
 import { Faiblo_Ball } from './faiblo-ball';
 
 export const setsv01: Card[] = [
+  new Miraidon(),
   new Hypnomade(),
   new Leveinard(),
   new Wimessir(),

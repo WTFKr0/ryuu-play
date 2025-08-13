@@ -38,6 +38,7 @@ setlist=""
 
 cardlist="
 # sv01 : SVI : Écarlate et Violet
+sv01;80
 sv01;83
 sv01;144
 sv01;153
@@ -47,11 +48,17 @@ sv01;180
 sv01;181
 
 # sv02 : PAL : Évolutions à Paldea
+sv02;74
+sv02;75
+sv02;76
 sv02;95
 sv02;96
 sv02;151
 sv02;164
+sv02;167
+sv02;168
 sv02;170
+sv02;261
 
 # sv03 : OBF : Flammes Obsidiennes
 sv03;143
@@ -69,6 +76,10 @@ sv04;173
 sv04;182
 
 # sv05 : TEF : Forces Temporelles
+sv05;39
+sv05;40
+sv05;41
+sv05;62
 sv05;112
 sv05;128
 sv05;129
@@ -77,6 +88,8 @@ sv05;139
 sv05;150
 
 # sv06 : TWM : Mascarade Crépusculaire
+sv06;56
+sv06;57
 sv06;79
 sv06;91
 sv06;144
@@ -116,6 +129,11 @@ swsh9;53
 swsh9;56
 
 # swsh10 : ASR : Astres Radieux
+swsh10;29
+swsh10;43
+swsh10;44
+swsh10;89
+swsh10;90
 swsh10;149
 
 # swsh12 : SIT : Tempête Argentée
@@ -132,6 +150,9 @@ swsh12.5;156
 swsh12.5;157
 swsh12.5;158
 swsh12.5;159
+
+# det1 : DPK : Détective Pikachu
+det1;9
 "
 
 ## Create base index
