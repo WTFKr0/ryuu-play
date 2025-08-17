@@ -47,7 +47,7 @@ sv01;175
 sv01;180
 sv01;181
 
-# sv02 : PAL : Évolutions à Paldea
+# sv02 : PAL : Écarlate et Violet Évolutions à Paldea
 sv02;74
 sv02;75
 sv02;76
@@ -60,7 +60,7 @@ sv02;168
 sv02;170
 sv02;261
 
-# sv03 : OBF : Flammes Obsidiennes
+# sv03 : OBF : Écarlate et Violet Flammes Obsidiennes
 sv03;143
 sv03;148
 sv03;149
@@ -69,13 +69,13 @@ sv03;155
 sv03;165
 sv03;185
 
-# sv04 : PAR : Faille Paradoxe
+# sv04 : PAR : Écarlate et Violet Faille Paradoxe
 sv04;74
 sv04;148
 sv04;173
 sv04;182
 
-# sv05 : TEF : Forces Temporelles
+# sv05 : TEF : Écarlate et Violet Forces Temporelles
 sv05;39
 sv05;40
 sv05;41
@@ -87,7 +87,7 @@ sv05;138
 sv05;139
 sv05;150
 
-# sv06 : TWM : Mascarade Crépusculaire
+# sv06 : TWM : Écarlate et Violet Mascarade Crépusculaire
 sv06;56
 sv06;57
 sv06;79
@@ -95,7 +95,7 @@ sv06;91
 sv06;144
 sv06;161
 
-# sv06.5 : SFA : Fable Nébuleuse
+# sv06.5 : SFA : Écarlate et Violet Fable Nébuleuse
 sv06.5;15
 sv06.5;16
 sv06.5;18
@@ -114,21 +114,22 @@ sv06.5;61
 sv06.5;63
 sv06.5;64
 
-# sv08 : SSP : Étincelles Déferlantes
+# sv08 : SSP : Écarlate et Violet Étincelles Déferlantes
 sv08;81
 sv08;129
 
 # swsh1 : SWSH1 : Épée et Bouclier
 swsh1;165
 
-# swsh4 : SWSH4 : Voltage Éclatant
+# swsh4 : SWSH4 : Épée et Bouclier Voltage Éclatant
 swsh4;112
 
-# swsh9 : BRS : Stars Étincelantes
+# swsh9 : BRS : Épée et Bouclier Stars Étincelantes
 swsh9;53
 swsh9;56
 
-# swsh10 : ASR : Astres Radieux
+# swsh10 : ASR : Épée et Bouclier Astres Radieux
+swsh10;28
 swsh10;29
 swsh10;43
 swsh10;44
@@ -136,7 +137,7 @@ swsh10;89
 swsh10;90
 swsh10;149
 
-# swsh12 : SIT : Tempête Argentée
+# swsh12 : SIT : Épée et Bouclier Tempête Argentée
 swsh12;151
 
 # swsh12.5 : CRZ : Zénith Suprême
@@ -197,20 +198,23 @@ for s in $sets; do
 		name=$(echo "$name" | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
 		echo "name2: $name"
 
-		# Init file for card
-		tmpfile=/tmp/getSet$$-$s-$i.js
+		# Test if file is already here
+		if [ ! -f $filename ]; then
+
+			# Init file for card
+			tmpfile=/tmp/getSet$$-$s-$i.js
 		
 
-		# Pokemon card
-		if [ "$category" == "Pokémon" ]; then
-			nbabilities=$(echo "$cardjson" | jq -r '.abilities | length')
-			if [ "$nbabilities" -eq 0 ]; then
-				commentPT="//"
-			else
-				commentPT=""
-			fi
+			# Pokemon card
+			if [ "$category" == "Pokémon" ]; then
+				nbabilities=$(echo "$cardjson" | jq -r '.abilities | length')
+				if [ "$nbabilities" -eq 0 ]; then
+					commentPT="//"
+				else
+					commentPT=""
+				fi
 
-			cat <<EOF >$tmpfile
+				cat <<EOF >$tmpfile
 import {
   //AttackEffect,
   CardType,
@@ -235,125 +239,173 @@ import {
 
 EOF
 
-			hp=$(echo "$cardjson" | jq -r '.hp')
-			nbtypes=$(echo "$cardjson" | jq -r '.types | length')
-			if [ $nbtypes -ne 1 ]; then
-				echo "Multiple types ?"
-				echo "$cardjson" | jq '.'
-				exit 3
-			fi
-			poketype=$(echo "$cardjson" | jq -r '.types[0]')
-			retreat=$(echo "$cardjson" | jq -r '.retreat')
-			nbweaknesses=$(echo "$cardjson" | jq -r '.weaknesses | length')
-			if [ $nbweaknesses -eq 0 ]; then
-				weaknesstype="ANY"
-	            weaknessmult="ANY"
-            elif [ $nbweaknesses -ne 1 ]; then
-				echo "Multiple weaknesses ?"
-	            echo "$cardjson" | jq '.'
-	            exit 3
-			else
-				weaknesstype=$(echo "$cardjson" | jq -r '.weaknesses[0].type')
-				weaknessmult=$(echo "$cardjson" | jq -r '.weaknesses[0].value')
-	        fi
-			stage=$(echo "$cardjson" | jq -r '.stage')
-			if [ "$stage" != "De Base" ]; then
-				evolveFrom=$(echo "$cardjson" | jq -r '.evolveFrom')
-				[ "$evolveFrom" == "null" ] && evolveFrom="TODO_ELVOLVE"
-			fi
-			
-			echo "hp: $hp"
-			echo "type: $poketype"
-			echo "retreat: $retreat"
-			echo "weakness: $weaknesstype $weaknessmult"
-			echo "stage: $stage"
-			[ "$stage" != "De Base" ] && echo "evolveFrom: $evolveFrom"
+				hp=$(echo "$cardjson" | jq -r '.hp')
+				nbtypes=$(echo "$cardjson" | jq -r '.types | length')
+				if [ $nbtypes -ne 1 ]; then
+					echo "Multiple types ?"
+					echo "$cardjson" | jq '.'
+					exit 3
+				fi
+				poketype=$(echo "$cardjson" | jq -r '.types[0]')
+				retreat=$(echo "$cardjson" | jq -r '.retreat')
+				nbweaknesses=$(echo "$cardjson" | jq -r '.weaknesses | length')
+				if [ $nbweaknesses -eq 0 ]; then
+					setname=$(echo "$cardlist" | grep "^# $s : " | awk -F" : " '{print $NF}' | sed "s/ /_/g")
+					if [ ! -f .cache/pokepedia-$s-$i.html ]; then
+						n=$(echo "$name" | sed "s/ /_/g")
+						curl -sfL "https://www.pokepedia.fr/${n}_(${setname}_${nb})" > .cache/pokepedia-$s-$i.html
+					fi
+					pokecard=$(cat .cache/pokepedia-$s-$i.html)
+					weaknesstype=$(echo "$pokecard" | grep -A2 '<th><a href="/Faiblesse_(JCC)"' | tail -1 | awk -F"title=\"" '{print $2}' | awk -F "\"" '{print $1}')
+					weaknessmult=$(echo "$pokecard" | grep -A2 '<th><a href="/Faiblesse_(JCC)"' | tail -1 | awk -F"title=\"" '{print $2}' | awk -F " " '{print $NF}')
+					if [ -z "$weaknesstype" ]; then
+						echo "No weakness found !"
+						exit 2
+					fi
+            	elif [ $nbweaknesses -ne 1 ]; then
+					echo "Multiple weaknesses ?"
+	            	echo "$cardjson" | jq '.'
+	            	exit 3
+				else
+					weaknesstype=$(echo "$cardjson" | jq -r '.weaknesses[0].type')
+					weaknessmult=$(echo "$cardjson" | jq -r '.weaknesses[0].value')
+	        	fi
 
-			# Feed tmpfile
-			echo "export class $uniquename extends PokemonCard {" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public set: string = '$s';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public name: string = '$name';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public fullName: string = '$name $s';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public imageUrl: string = '$image';" >> $tmpfile
-			echo >> $tmpfile
-			if [ "$stage" == "De base" ]; then
-				echo "  public stage: Stage = Stage.BASIC;" >> $tmpfile
-			elif [ "$stage" == "Niveau 1" ]; then
-			       echo "  public stage: Stage = Stage.STAGE_1;" >> $tmpfile
-				   echo "  public evolvesFrom = '$evolveFrom';" >> $tmpfile
-			elif [ "$stage" == "Niveau 2" ]; then
-			       echo "  public stage: Stage = Stage.STAGE_2;" >> $tmpfile
-				   echo "  public evolvesFrom = '$evolveFrom';" >> $tmpfile
-			else
-				echo "Unkonwn stage : $stage !!"
-				exit 3
-			fi
-			echo >> $tmpfile
-			poketypejs=`typeJS "$poketype"`
-			[ -z "$poketypejs" ] && echo "Type $poketype inconnu !" && exit 3
-			echo "  public cardTypes: CardType[] = [CardType.$poketypejs];" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public hp: number = $hp;" >> $tmpfile
-			echo >> $tmpfile
-			weaknesstypejs=`typeJS "$weaknesstype"`
-			[ -z "$weaknesstypejs" ] && echo "Type $weaknesstype inconnu !" && exit 3
-			echo "  public weakness = [{ type: CardType.$weaknesstypejs }];" >> $tmpfile
+				nbresist=$(echo "$cardjson" | jq -r '.resist | length')
+				if [ $nbresist -eq 0 ]; then
+					setname=$(echo "$cardlist" | grep "^# $s : " | awk -F" : " '{print $NF}' | sed "s/ /_/g")
+					if [ ! -f .cache/pokepedia-$s-$i.html ]; then
+						n=$(echo "$name" | sed "s/ /_/g")
+						curl -sfL "https://www.pokepedia.fr/${n}_(${setname}_${nb})" > .cache/pokepedia-$s-$i.html
+					fi
+					pokecard=$(cat .cache/pokepedia-$s-$i.html)
+					resisttype=$(echo "$pokecard" | grep -A2 '<th><a href="/R%C3%A9sistance_(JCC)"' | tail -1 | awk -F"title=\"" '{print $2}' | awk -F "\"" '{print $1}')
+					resistvalue=$(echo "$pokecard" | grep -A2 '<th><a href="/R%C3%A9sistance_(JCC)"' | tail -1 | awk -F"title=\"" '{print $2}' | awk -F " " '{print $NF}')
+					#if [ -z "$resisttype" ]; then
+					#	echo "No resist found !"
+					#	exit 2
+					#fi
+            	elif [ $nbresist -ne 1 ]; then
+					echo "Multiple resist ?"
+	            	echo "$cardjson" | jq '.'
+	            	exit 3
+				else
+					resisttype=$(echo "$cardjson" | jq -r '.resist[0].type')
+					resistvalue=$(echo "$cardjson" | jq -r '.resist[0].value')
+	        	fi
 
-			echo >> $tmpfile
-			echo "  public resistance = [
+				stage=$(echo "$cardjson" | jq -r '.stage')
+				echo "stage: $stage"
+				if [ "$stage" != "De base" ]; then
+					evolveFrom=$(echo "$cardjson" | jq -r '.evolveFrom')
+					if [ "$evolveFrom" == "null" ]; then
+						# Test from jsons
+						#set -x
+						idbase=$(cat jsons/species/*.json | jq --arg n $name -r '.|select(.names[].name==$n) | .evolves_from_species.url' | sed "s|.*/\(.*\)/$|\1|g")
+						evolveFrom=$(cat jsons/species/${idbase}.json | jq -r '.names[] | select(.language.name=="fr") | .name')
+						echo "$name evolves from $evolveFrom"
+						#exit 2
+					fi
+				fi	
+
+				echo "hp: $hp"
+				echo "type: $poketype"
+				echo "retreat: $retreat"
+				echo "weakness: $weaknesstype $weaknessmult"
+				echo "resist: $resisttype $resistvalue"
+				echo "stage: $stage"
+				[ "$stage" != "De Base" ] && echo "evolveFrom: $evolveFrom"
+
+				# Feed tmpfile
+				echo "export class $uniquename extends PokemonCard {" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public set: string = '$s';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public name: string = '$name';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public fullName: string = '$name $s';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public imageUrl: string = '$image';" >> $tmpfile
+				echo >> $tmpfile
+				if [ "$stage" == "De base" ]; then
+					echo "  public stage: Stage = Stage.BASIC;" >> $tmpfile
+				elif [ "$stage" == "Niveau 1" ]; then
+			       	echo "  public stage: Stage = Stage.STAGE_1;" >> $tmpfile
+				   	echo "  public evolvesFrom = '$evolveFrom';" >> $tmpfile
+				elif [ "$stage" == "Niveau 2" ]; then
+			       	echo "  public stage: Stage = Stage.STAGE_2;" >> $tmpfile
+				   	echo "  public evolvesFrom = '$evolveFrom';" >> $tmpfile
+				else
+					echo "Unkonwn stage : $stage !!"
+					exit 3
+				fi
+				echo >> $tmpfile
+				poketypejs=`typeJS "$poketype"`
+				[ -z "$poketypejs" ] && echo "Type $poketype inconnu !" && exit 3
+				echo "  public cardTypes: CardType[] = [CardType.$poketypejs];" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public hp: number = $hp;" >> $tmpfile
+				echo >> $tmpfile
+				weaknesstypejs=`typeJS "$weaknesstype"`
+				[ -z "$weaknesstypejs" ] && echo "Type $weaknesstype inconnu !" && exit 3
+				echo "  public weakness = [{ type: CardType.$weaknesstypejs }];" >> $tmpfile
+
+				if [ -n "$resisttype" ]; then
+					echo >> $tmpfile
+					resisttypejs=`typeJS "$resisttype"`
+					[ -z "$resisttypejs" ] && echo "Type $resisttype inconnu !" && exit 3
+					echo "  public resistance = [
     {
-      type: CardType.ANY,
-      value: -30,
+      type: CardType.$resisttypejs,
+      value: $resistvalue,
     },
   ];" >>$tmpfile
-			echo >> $tmpfile
+				fi
 
-  			## RETREAT
-			retreatjs=""
-			ir=0
-			while [ $ir -lt $retreat ]; do
-				retreatjs="${retreatjs}CardType.COLORLESS,"
-				let ir=$ir+1
-			done
-			retreatjs=$(echo "$retreatjs" | sed "s/,$//g")
-            echo "  public retreat = [$retreatjs];" >> $tmpfile
-			echo >> $tmpfile
-	
-			# Abilities
-			abilities="$nbabilities found"
-			echo "abilities: $abilities"
-			if [ $nbabilities -gt 0 ]; then
 				echo >> $tmpfile
-				echo "  public powers = [" >> $tmpfile
-				ia=0
-				while [ $ia -lt $nbabilities ]; do
-					abtype=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].type')
-					abname=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].name' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
-					abeffect=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
-					[ "$abeffect" == "null" ] && abeffect=""
-					echo "    {" >> $tmpfile
-					echo "      name: '$abname'," >> $tmpfile
-					echo "      powerType: PowerType.POKEPOWER," >> $tmpfile
-					echo "      text: '$abeffect'," >> $tmpfile
-					echo "    }," >> $tmpfile
-					let ia=$ia+1
-				done
-				echo "  ];" >> $tmpfile
-			fi
-			echo >> $tmpfile
 
-			# Attacks
-			nbattacks=$(echo "$cardjson" | jq -r '.attacks | length')
-			attacks="$nbattacks found"
-			echo "attacks: $attacks"
-			if [ $nbattacks -gt 0 ]; then
-                                echo "  public attacks = [" >> $tmpfile
-                                ia=0
-                                while [ $ia -lt $nbattacks ]; do
+  				## RETREAT
+				retreatjs=""
+				ir=0
+				while [ $ir -lt $retreat ]; do
+					retreatjs="${retreatjs}CardType.COLORLESS,"
+					let ir=$ir+1
+				done
+				retreatjs=$(echo "$retreatjs" | sed "s/,$//g")
+            	echo "  public retreat = [$retreatjs];" >> $tmpfile
+				echo >> $tmpfile
+	
+				# Abilities
+				abilities="$nbabilities found"
+				echo "abilities: $abilities"
+				if [ $nbabilities -gt 0 ]; then
+					echo >> $tmpfile
+					echo "  public powers = [" >> $tmpfile
+					ia=0
+					while [ $ia -lt $nbabilities ]; do
+						abtype=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].type')
+						abname=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].name' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
+						abeffect=$(echo "$cardjson" | jq --argjson id $ia -r '.abilities[$id].effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
+						[ "$abeffect" == "null" ] && abeffect=""
+						echo "    {" >> $tmpfile
+						echo "      name: '$abname'," >> $tmpfile
+						echo "      powerType: PowerType.POKEPOWER," >> $tmpfile
+						echo "      text: '$abeffect'," >> $tmpfile
+						echo "    }," >> $tmpfile
+						let ia=$ia+1
+					done
+					echo "  ];" >> $tmpfile
+				fi
+				echo >> $tmpfile
+
+				# Attacks
+				nbattacks=$(echo "$cardjson" | jq -r '.attacks | length')
+				attacks="$nbattacks found"
+				echo "attacks: $attacks"
+				if [ $nbattacks -gt 0 ]; then
+                                	echo "  public attacks = [" >> $tmpfile
+                                	ia=0
+                                	while [ $ia -lt $nbattacks ]; do
                                         atcost=$(echo "$cardjson" | jq --argjson id $ia -r '.attacks[$id].cost[]')
                                         atname=$(echo "$cardjson" | jq --argjson id $ia -r '.attacks[$id].name' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
                                         ateffect=$(echo "$cardjson" | jq --argjson id $ia -r '.attacks[$id].effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
@@ -379,72 +431,91 @@ EOF
                                 echo "  ];" >> $tmpfile
                         fi
 
-			echo >> $tmpfile
-			echo "  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+				echo >> $tmpfile
+				echo "  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     return state;
   }" >> $tmpfile
 		
-		## Trainers
-		elif [ "$category" == "Dresseur" ]; then
-			cat <<EOF >$tmpfile
+			## Trainers
+			elif [ "$category" == "Dresseur" ]; then
+			#set -x
+				cat <<EOF >$tmpfile
 import {
   Effect,
-  //GameError,
-  //GameMessage,
+  GameError,
+  GameMessage,
   State,
   StoreLike,
   TrainerCard,
-  //TrainerEffect,
+  TrainerEffect,
   TrainerType,
 } from '@ptcg/common';
 
 EOF
 
-			# Get values
-			trainertype=$(echo "$cardjson" | jq -r '.trainerType')
-			if [ "$trainertype" == "Objet" ]; then
-				trainertype="ITEM"
-			elif [ "$trainertype" == "Supporter" ]; then
-				trainertype="SUPPORTER"
-			elif [ "$trainertype" == "Outil" ]; then
-				trainertype="TOOL"
-			elif [ "$trainertype" == "Stade" ]; then
-				trainertype="STADIUM"
-			else
+				# Get values
+				trainertype=$(echo "$cardjson" | jq -r '.trainerType')
+				if [ "$trainertype" == "Objet" ]; then
+					trainertype="ITEM"
+				elif [ "$trainertype" == "Supporter" ]; then
+					trainertype="SUPPORTER"
+				elif [ "$trainertype" == "Outil" ]; then
+					trainertype="TOOL"
+				elif [ "$trainertype" == "Stade" ]; then
+					trainertype="STADIUM"
+				else
 	#      = 0,
     #SUPPORTER = 1,
     #STADIUM = 2,
     # = 3
-				echo "TrainerType $trainertype not found !"
-				exit 3
-			fi
-			effect=$(echo "$cardjson" | jq -r '.effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
-			echo "trainertype: $trainertype"
-			echo "effect: $effect"
-			# Feed tmpfile
-			echo "export class $uniquename extends TrainerCard {" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public trainerType: TrainerType = TrainerType.$trainertype;" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public set: string = '$s';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public name: string = '$name';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public fullName: string = '$name $s';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public imageUrl: string = '$image';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public text: string = '$effect';" >> $tmpfile
-			echo >> $tmpfile
+					echo "TrainerType $trainertype not found !"
+					exit 3
+				fi
+				effect=$(echo "$cardjson" | jq -r '.effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
+				echo "trainertype: $trainertype"
+				echo "effect: $effect"
+				# Feed tmpfile
+				echo "export class $uniquename extends TrainerCard {" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public trainerType: TrainerType = TrainerType.$trainertype;" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public set: string = '$s';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public name: string = '$name';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public fullName: string = '$name $s';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public imageUrl: string = '$image';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public text: string = '$effect';" >> $tmpfile
+				echo >> $tmpfile
 
-			echo >> $tmpfile
-			echo "  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+				#set -x
+
+				echo >> $tmpfile
+				cat <<EOF >>$tmpfile
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+
+    // Piochez 3 cartes.
+    if (effect instanceof TrainerEffect && effect.trainerCard === this && effect.trainerCard.text === 'Piochez 3 cartes.') {
+      const player = effect.player;
+
+      if (player.deck.cards.length === 0) {
+        throw new GameError(GameMessage.CANNOT_PLAY_THIS_CARD);
+      }
+
+      player.deck.moveTo(player.hand, 3);
+    }
+
     return state;
-  }" >> $tmpfile
-			
-		## Energies
-		elif [ "$category" == "Énergie" ]; then
-			cat <<EOF >$tmpfile
+  }
+EOF
+
+			echo "FIN dresseur $category"
+			## Energies
+			elif [ "$category" == "Énergie" ]; then
+				echo "DEBUT enegergy $category"
+				cat <<EOF >$tmpfile
 import {
   CardType,
   EnergyCard,
@@ -453,72 +524,75 @@ import {
 
 EOF
 
-			# Get values
-			energyType=$(echo "$cardjson" | jq -r '.energyType')
-			if [ "$energyType" == "De base" ]; then
-				energyType="BASIC"
-			elif [ "$energyType" == "Spécial" ]; then
-				energyType="SPECIAL"
-			else
+				# Get values
+				#set -x
+				energyType=$(echo "$cardjson" | jq -r '.energyType')
+				if [ "$energyType" == "De base" ]; then
+					energyType="BASIC"
+				elif [ "$energyType" == "Spécial" ]; then
+					energyType="SPECIAL"
+				else
 	#      = 0,
     #SUPPORTER = 1,
     #STADIUM = 2,
     # = 3
-				echo "energyType $energyType not found !"
-				exit 3
-			fi
-
-			energyT=$(echo "$name" | sed "s/^Énergie //g")
-			energyTjs=`typeJS "$energyT"`
-			if [ -z "$energyTjs" ]; then
-				if [ "$energyT" == "Médicale" ]; then
-					energyTjs="COLORLESS"
-				else
-					echo "Type $energyT inconnu !" && exit 3
+					echo "energyType $energyType not found !"
+					exit 3
 				fi
-			fi
-			effect=$(echo "$cardjson" | jq -r '.effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
-			[ "$effect" == "null" ] && effect=""
 
-			echo "energyTjs: $energyTjs"
-			echo "effect: $effect"
-			# Feed tmpfile
-			echo "export class $uniquename extends EnergyCard {" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public provides: CardType[] = [CardType.$energyTjs];" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public energyType = EnergyType.$energyType;" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public set: string = '$s';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public name: string = '$name';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public fullName: string = '$name $s';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public imageUrl: string = '$image';" >> $tmpfile
-			echo >> $tmpfile
-			echo "  public text: string = '$effect';" >> $tmpfile
-			echo >> $tmpfile
+				energyT=$(echo "$name" | sed "s/^Énergie //g")
+				energyTjs=`typeJS "$energyT"`
+				if [ -z "$energyTjs" ]; then
+					if [ "$energyT" == "Médicale" ]; then
+						energyTjs="COLORLESS"
+					else
+						echo "Type $energyT inconnu !" && exit 3
+					fi
+				fi
+				effect=$(echo "$cardjson" | jq -r '.effect' | sed "s/'/\\\\'/g" | tr '\n' ' ' | sed "s/ *$//g")
+				[ "$effect" == "null" ] && effect=""
+
+				echo "energyTjs: $energyTjs"
+				echo "effect: $effect"
+				# Feed tmpfile
+				echo "export class $uniquename extends EnergyCard {" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public provides: CardType[] = [CardType.$energyTjs];" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public energyType = EnergyType.$energyType;" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public set: string = '$s';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public name: string = '$name';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public fullName: string = '$name $s';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public imageUrl: string = '$image';" >> $tmpfile
+				echo >> $tmpfile
+				echo "  public text: string = '$effect';" >> $tmpfile
+				echo >> $tmpfile
 
 #			echo >> $tmpfile
 #			echo "  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
 #    return state;
 #  }" >> $tmpfile
 		
-		else
-			echo "Category $category not managed !"
-			exit 2
-		fi
+			else
+				echo "Category $category not managed !"
+				exit 2
+			fi
 
-		echo "}" >> $tmpfile
+			echo "}" >> $tmpfile
 
-		#cat $tmpfile
-		if [ -f packages/sets/src/fr/$setjsname/$filename.ts ]; then
-			echo "File packages/sets/src/fr/$setjsname/$filename.ts already exists, we do nothing !"
-		else
-			mv $tmpfile packages/sets/src/fr/$setjsname/$filename.ts
+			#cat $tmpfile
+			if [ -f packages/sets/src/fr/$setjsname/$filename.ts ]; then
+				echo "File packages/sets/src/fr/$setjsname/$filename.ts already exists, we do nothing !"
+			else
+				mv $tmpfile packages/sets/src/fr/$setjsname/$filename.ts
+			fi
+			rm -f $tmpfile
+
 		fi
-		rm -f $tmpfile
 
 		# Edit indexset
 		echo "import { $uniquename } from './$filename';" >> $indexsetfile1

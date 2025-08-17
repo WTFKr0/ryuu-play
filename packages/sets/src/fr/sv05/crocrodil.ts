@@ -31,20 +31,13 @@ export class Crocrodil extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv05/040/high.jpg';
 
   public stage: Stage = Stage.STAGE_1;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = 'Kaiminus';
 
   public cardTypes: CardType[] = [CardType.WATER];
 
   public hp: number = 90;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.LIGHTNING }];
 
   public retreat = [CardType.COLORLESS,CardType.COLORLESS];
 

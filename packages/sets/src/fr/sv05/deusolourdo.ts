@@ -31,20 +31,13 @@ export class Deusolourdo extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv05/129/high.jpg';
 
   public stage: Stage = Stage.STAGE_1;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = 'Insolourdo';
 
   public cardTypes: CardType[] = [CardType.COLORLESS];
 
   public hp: number = 140;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.FIGHTING }];
 
   public retreat = [CardType.COLORLESS,CardType.COLORLESS,CardType.COLORLESS];
 

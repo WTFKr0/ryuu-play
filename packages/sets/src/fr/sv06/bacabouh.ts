@@ -36,11 +36,11 @@ export class Bacabouh extends PokemonCard {
 
   public hp: number = 90;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.DARK }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.FIGHTING,
       value: -30,
     },
   ];

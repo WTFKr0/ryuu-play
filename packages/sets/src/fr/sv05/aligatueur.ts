@@ -31,20 +31,13 @@ export class Aligatueur extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv05/041/high.jpg';
 
   public stage: Stage = Stage.STAGE_2;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = 'Crocrodil';
 
   public cardTypes: CardType[] = [CardType.WATER];
 
   public hp: number = 180;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.LIGHTNING }];
 
   public retreat = [CardType.COLORLESS,CardType.COLORLESS,CardType.COLORLESS];
 

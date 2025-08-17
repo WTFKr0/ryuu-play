@@ -31,20 +31,13 @@ export class Pohmarmotte extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv02/076/high.jpg';
 
   public stage: Stage = Stage.STAGE_2;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = 'Pohmotte';
 
   public cardTypes: CardType[] = [CardType.LIGHTNING];
 
   public hp: number = 140;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.FIGHTING }];
 
   public retreat = [CardType.COLORLESS];
 

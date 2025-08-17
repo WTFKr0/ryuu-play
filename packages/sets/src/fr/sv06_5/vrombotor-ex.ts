@@ -31,20 +31,13 @@ export class Vrombotor_ex extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv06.5/015/high.jpg';
 
   public stage: Stage = Stage.STAGE_1;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = '';
 
   public cardTypes: CardType[] = [CardType.LIGHTNING];
 
   public hp: number = 280;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.FIGHTING }];
 
   public retreat = [CardType.COLORLESS];
 

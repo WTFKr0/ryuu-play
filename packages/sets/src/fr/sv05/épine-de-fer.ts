@@ -36,14 +36,7 @@ export class Épine_de_Fer extends PokemonCard {
 
   public hp: number = 140;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.FIGHTING }];
 
   public retreat = [CardType.COLORLESS,CardType.COLORLESS,CardType.COLORLESS];
 

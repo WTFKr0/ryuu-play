@@ -36,11 +36,11 @@ export class Minisange extends PokemonCard {
 
   public hp: number = 60;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.LIGHTNING }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.FIGHTING,
       value: -30,
     },
   ];

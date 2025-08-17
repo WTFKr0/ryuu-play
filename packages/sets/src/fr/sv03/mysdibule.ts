@@ -36,11 +36,11 @@ export class Mysdibule extends PokemonCard {
 
   public hp: number = 90;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.FIRE }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.GRASS,
       value: -30,
     },
   ];

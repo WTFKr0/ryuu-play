@@ -36,11 +36,11 @@ export class Charibari extends PokemonCard {
 
   public hp: number = 100;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.FIRE }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.GRASS,
       value: -30,
     },
   ];

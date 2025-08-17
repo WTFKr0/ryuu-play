@@ -31,20 +31,13 @@ export class Chelours extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv06.5/053/high.jpg';
 
   public stage: Stage = Stage.STAGE_1;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = 'Nounourson';
 
   public cardTypes: CardType[] = [CardType.COLORLESS];
 
   public hp: number = 130;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.FIGHTING }];
 
   public retreat = [CardType.COLORLESS,CardType.COLORLESS,CardType.COLORLESS];
 

@@ -31,20 +31,13 @@ export class Famignol extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv02/168/high.jpg';
 
   public stage: Stage = Stage.STAGE_1;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = 'Compagnol';
 
   public cardTypes: CardType[] = [CardType.COLORLESS];
 
   public hp: number = 60;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.FIGHTING }];
 
   public retreat = [CardType.COLORLESS];
 

@@ -31,20 +31,13 @@ export class Mélodelfe extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv06/079/high.jpg';
 
   public stage: Stage = Stage.STAGE_1;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = 'Mélofée';
 
   public cardTypes: CardType[] = [CardType.PSYCHIC];
 
   public hp: number = 120;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.METAL }];
 
   public retreat = [CardType.COLORLESS,CardType.COLORLESS];
 

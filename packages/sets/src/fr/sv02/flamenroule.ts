@@ -36,11 +36,11 @@ export class Flamenroule extends PokemonCard {
 
   public hp: number = 110;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.LIGHTNING }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.FIGHTING,
       value: -30,
     },
   ];

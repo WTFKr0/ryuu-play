@@ -36,14 +36,7 @@ export class Bargantua_de_Hisui extends PokemonCard {
 
   public hp: number = 50;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.LIGHTNING }];
 
   public retreat = [CardType.COLORLESS];
 

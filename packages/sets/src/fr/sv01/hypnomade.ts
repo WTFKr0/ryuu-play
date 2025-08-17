@@ -31,17 +31,17 @@ export class Hypnomade extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv01/083/high.jpg';
 
   public stage: Stage = Stage.STAGE_1;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = 'Soporifik';
 
   public cardTypes: CardType[] = [CardType.PSYCHIC];
 
   public hp: number = 110;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.DARK }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.FIGHTING,
       value: -30,
     },
   ];

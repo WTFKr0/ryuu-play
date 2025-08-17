@@ -36,11 +36,11 @@ export class Vrombi extends PokemonCard {
 
   public hp: number = 70;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.FIRE }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.GRASS,
       value: -30,
     },
   ];

@@ -31,17 +31,17 @@ export class Scalproie extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv03/149/high.jpg';
 
   public stage: Stage = Stage.STAGE_1;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = 'Scalpion';
 
   public cardTypes: CardType[] = [CardType.METAL];
 
   public hp: number = 110;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.FIRE }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.GRASS,
       value: -30,
     },
   ];

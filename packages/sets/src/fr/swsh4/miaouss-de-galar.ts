@@ -40,7 +40,7 @@ export class Miaouss_de_Galar extends PokemonCard {
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.GRASS,
       value: -30,
     },
   ];

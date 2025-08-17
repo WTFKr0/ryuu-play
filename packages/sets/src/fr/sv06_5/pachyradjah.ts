@@ -31,17 +31,17 @@ export class Pachyradjah extends PokemonCard {
   public imageUrl: string = 'https://assets.tcgdex.net/fr/sv/sv06.5/042/high.jpg';
 
   public stage: Stage = Stage.STAGE_1;
-  public evolvesFrom = 'TODO_ELVOLVE';
+  public evolvesFrom = 'Charibari';
 
   public cardTypes: CardType[] = [CardType.METAL];
 
   public hp: number = 200;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.FIRE }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.GRASS,
       value: -30,
     },
   ];

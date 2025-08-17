@@ -39,13 +39,6 @@ export class Amphinobi extends PokemonCard {
 
   public weakness = [{ type: CardType.GRASS }];
 
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
-
   public retreat = [CardType.COLORLESS];
 
 

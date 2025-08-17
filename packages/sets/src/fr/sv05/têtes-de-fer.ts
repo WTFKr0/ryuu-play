@@ -36,11 +36,11 @@ export class Têtes_de_Fer extends PokemonCard {
 
   public hp: number = 130;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.LIGHTNING }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.FIGHTING,
       value: -30,
     },
   ];

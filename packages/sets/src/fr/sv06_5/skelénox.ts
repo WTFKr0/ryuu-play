@@ -36,11 +36,11 @@ export class Skelénox extends PokemonCard {
 
   public hp: number = 60;
 
-  public weakness = [{ type: CardType.ANY }];
+  public weakness = [{ type: CardType.DARK }];
 
   public resistance = [
     {
-      type: CardType.ANY,
+      type: CardType.FIGHTING,
       value: -30,
     },
   ];

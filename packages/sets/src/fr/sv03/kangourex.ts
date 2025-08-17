@@ -36,14 +36,7 @@ export class Kangourex extends PokemonCard {
 
   public hp: number = 130;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.FIGHTING }];
 
   public retreat = [CardType.COLORLESS,CardType.COLORLESS];
 

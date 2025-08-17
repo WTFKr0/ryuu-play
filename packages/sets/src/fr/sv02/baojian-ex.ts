@@ -38,14 +38,7 @@ export class Baojian_ex extends PokemonCard {
 
   public weakness = [{ type: CardType.METAL }];
 
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
-
-  public retreat = [CardType.COLORLESS, CardType.COLORLESS];
+  public retreat = [CardType.COLORLESS,CardType.COLORLESS];
 
 
   public powers = [
@@ -59,7 +52,7 @@ export class Baojian_ex extends PokemonCard {
   public attacks = [
     {
       name: 'Lame Grêle',
-      cost: [CardType.WATER, CardType.WATER],
+      cost: [CardType.WATER,CardType.WATER],
       damage: '60×',
       text: 'Vous pouvez défausser autant d\'Énergies {W} que vous le voulez de vos Pokémon. Cette attaque inflige 60 dégâts pour chaque carte défaussée de cette façon.',
     },

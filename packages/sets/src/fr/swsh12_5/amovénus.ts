@@ -36,14 +36,7 @@ export class Amovénus extends PokemonCard {
 
   public hp: number = 120;
 
-  public weakness = [{ type: CardType.ANY }];
-
-  public resistance = [
-    {
-      type: CardType.ANY,
-      value: -30,
-    },
-  ];
+  public weakness = [{ type: CardType.METAL }];
 
   public retreat = [CardType.COLORLESS,CardType.COLORLESS];
 
